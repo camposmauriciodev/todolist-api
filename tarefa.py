@@ -54,3 +54,14 @@ def apagar_tarefa(tarefa_id):
     con.commit()
     cursor.close()
     con.close()
+
+def atualizar_tarefa(tarefa_id, name, description):
+    con = get_conexao()
+    cursor = con.cursor()
+    cursor.execute(
+        "UPDATE todos SET name=%s, description=%s WHERE id=%s",
+        (name, description, tarefa_id)
+    )
+    con.commit()
+    cursor.close()
+    con.close()
