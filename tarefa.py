@@ -43,3 +43,14 @@ def criar_tarefa(name, description):
     # Encerrar as conexoes com banco de dados
     cursor.close()
     con.close()
+
+def apagar_tarefa(tarefa_id):
+    con = get_conexao()
+    cursor = con.cursor()
+    cursor.execute(
+        "DELETE FROM todos WHERE id = %s",
+        (tarefa_id,)
+    )
+    con.commit()
+    cursor.close()
+    con.close()

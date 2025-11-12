@@ -1,5 +1,5 @@
 from flask import Flask, request
-from tarefa import buscar_tarefas, buscar_tarefa, criar_tarefa
+from tarefa import *
 
 app = Flask(__name__)
 
@@ -29,6 +29,13 @@ def create_tarefa():
     criar_tarefa(tarefa_name, tarefa_description)
     return {
         'message': 'Tarefa cadastrada'
+    }
+
+@app.route('/api/tarefas/<int:tarefa_id>', methods=['DELETE'])
+def delete_tarefa(tarefa_id):
+    apagar_tarefa(tarefa_id)
+    return {
+        'message': 'Tarefa apagada com sucesso'
     }
 
 # Se for o modulo principal roda o projeto em debug(atualiza o projeto simultaneamente)
