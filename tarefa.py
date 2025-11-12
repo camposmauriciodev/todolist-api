@@ -7,7 +7,7 @@ def buscar_tarefas():
     con = get_conexao()
     cursor = con.cursor(cursor_factory = RealDictCursor)
     cursor.execute(
-        "SELECT id, name, description FROM todos;"
+        "SELECT id, name, description FROM todos ORDER BY id;"
     )
 
     todos = cursor.fetchall()
