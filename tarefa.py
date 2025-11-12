@@ -28,3 +28,18 @@ def buscar_tarefa(id):
     con.close()
 
     return jsonify(todos)
+
+def criar_tarefa(name, description):
+    # Conecta no banco de dados
+    con = get_conexao()
+    cursor = con.cursor()
+    cursor.execute(
+        "INSERT INTO todos (name, description) VALUES (%s, %s)",
+        (name, description)
+    )
+    # Enviar as modificações para o banco de dados
+    con.commit()
+
+    # Encerrar as conexoes com banco de dados
+    cursor.close()
+    con.close()

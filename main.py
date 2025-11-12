@@ -1,25 +1,35 @@
-from flask import Flask, redirect
-from tarefa import buscar_tarefas, buscar_tarefa
+from flask import Flask, request
+from tarefa import buscar_tarefas, buscar_tarefa, criar_tarefa
 
 app = Flask(__name__)
 
 @app.route('/api', methods=['GET'])
 def index():
     return{
-        'message': 'Api rodando'   
+        'message': 'Api tá pokando'
     }
 
 @app.route('/api/tarefas', methods=['GET'])
 def get_tarefas():
     tarefas = buscar_tarefas()
     # link = 'https://www.google.com'
-    # return redirect("https://www.gogle.com")
+    # return redirect("https://www.google.com")
     return tarefas
 
 @app.route('/api/tarefa/<int:todo_id>', methods=['GET'])
 def get_tarefa(todo_id):
     tarefa = buscar_tarefa(todo_id)
     return tarefa
+
+@app.route('/api/tarefas', methods=['POST'])
+def create_tarefa():
+    corpo = request.get_json()
+    tarefa_name = corpo.get('name')
+    tarefa_description = corpo.get('description')
+    criar_tarefa(tarefa_name, tarefa_description)
+    return {
+        'message': 'Tarefa cadastrada'
+    }
 
 # Se for o modulo principal roda o projeto em debug(atualiza o projeto simultaneamente)
 if __name__ == '__main__':
